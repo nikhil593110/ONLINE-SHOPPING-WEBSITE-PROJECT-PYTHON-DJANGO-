@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Checkout</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+
+            min-height:100vh;
+
+            background:linear-gradient(135deg,#0f172a,#1e293b,#334155);
+
+            padding:40px 20px;
+
+            overflow-y:auto;
+
+            color:white;
+        }
+
+        /* BACKGROUND */
+
+        .circle{
+
+            position:fixed;
+
+            border-radius:50%;
+
+            background:rgba(255,255,255,0.05);
+
+            animation: float 8s infinite ease-in-out;
+
+            z-index:1;
+        }
+
+        .circle:nth-child(1){
+
+            width:300px;
+            height:300px;
+
+            top:-100px;
+            left:-100px;
+        }
+
+        .circle:nth-child(2){
+
+            width:250px;
+            height:250px;
+
+            bottom:-100px;
+            right:-50px;
+
+            animation-duration:10s;
+        }
+
+        @keyframes float{
+
+            0%{
+                transform:translateY(0px);
+            }
+
+            50%{
+                transform:translateY(25px);
+            }
+
+            100%{
+                transform:translateY(0px);
+            }
+        }
+
+        /* MAIN CONTAINER */
+
+        .checkout-container{
+
+            position:relative;
+
+            z-index:10;
+
+            max-width:1200px;
+
+            margin:auto;
+
+            display:grid;
+
+            grid-template-columns:1fr 1fr;
+
+            gap:30px;
+        }
+
+        /* GLASS BOX */
+
+        .glass-box{
+
+            background:rgba(255,255,255,0.08);
+
+            backdrop-filter:blur(12px);
+
+            border:1px solid rgba(255,255,255,0.1);
+
+            border-radius:25px;
+
+            padding:40px;
+
+            box-shadow:0 0 40px rgba(0,0,0,0.3);
+
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(30px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        h1,h2{
+
+            margin-bottom:25px;
+
+            color:#00ffd5;
+        }
+
+        /* INPUTS */
+
+        input{
+
+            width:100%;
+
+            padding:15px;
+
+            margin-top:10px;
+
+            margin-bottom:20px;
+
+            border:none;
+
+            outline:none;
+
+            border-radius:15px;
+
+            background:rgba(255,255,255,0.12);
+
+            color:white;
+
+            font-size:16px;
+
+            transition:0.4s;
+        }
+
+        input:focus{
+
+            transform:scale(1.03);
+
+            box-shadow:0 0 20px #00ffd5;
+        }
+
+        label{
+
+            font-size:15px;
+        }
+
+        /* BUTTON */
+
+        button{
+
+            width:100%;
+
+            padding:15px;
+
+            border:none;
+
+            border-radius:30px;
+
+            background: linear-gradient(45deg,#f12711,#f5af19);
+
+            color:black;
+
+            font-size:18px;
+
+            font-weight:bold;
+
+            cursor:pointer;
+
+            transition:0.4s;
+        }
+
+        button:hover{
+
+            transform:translateY(-5px);
+
+            box-shadow:0 0 25px rgba(0,255,213,0.5);
+        }
+
+        /* CART ITEMS */
+
+        .cart-item{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            padding:15px;
+
+            margin-bottom:15px;
+
+            border-radius:15px;
+
+            background:rgba(255,255,255,0.06);
+
+            transition:0.4s;
+        }
+
+        .cart-item:hover{
+
+            transform:scale(1.03);
+
+            box-shadow:0 0 20px rgba(255,255,255,0.15);
+        }
+
+        .product-name{
+
+            color:#00ffd5;
+
+            font-weight:bold;
+        }
+
+        .quantity{
+
+            color:#ffffff;
+        }
+
+        /* TOTAL */
+
+        .total{
+
+            margin-top:25px;
+
+            font-size:24px;
+
+            text-align:right;
+
+            color:#00ffd5;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:900px){
+
+            .checkout-container{
+
+                grid-template-columns:1fr;
+            }
+        }
+
+        /* LOADER */
+
+        #loader{
+
+            position:fixed;
+
+            width:100%;
+
+            height:100vh;
+
+            background:#0f172a;
+
+            z-index:9999;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+        }
+
+        .spinner{
+
+            width:70px;
+
+            height:70px;
+
+            border:8px solid #334155;
+
+            border-top:8px solid #00ffd5;
+
+            border-radius:50%;
+
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin{
+
+            100%{
+                transform:rotate(360deg);
+            }
+        }
+
+        /* DELETE BUTTON */
+
+        .delete-btn{
+
+            background: linear-gradient(45deg,#f12711,#f5af19);
+
+            color:white;
+
+            border:none;
+
+            padding:8px 14px;
+
+            border-radius:15px;
+
+            text-decoration:none;
+
+            transition:0.4s;
+        }
+
+        .delete-btn:hover{
+
+            transform:scale(1.1);
+
+            box-shadow:0 0 15px rgba(255,75,43,0.5);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- LOADER -->
+
+    <div id="loader">
+
+        <div class="spinner"></div>
+
+    </div>
+
+    <!-- BACKGROUND -->
+
+    <div class="circle"></div>
+    <div class="circle"></div>
+
+    <!-- MAIN -->
+
+    <div class="checkout-container">
+
+        <!-- CHECKOUT FORM -->
+
+        <div class="glass-box">
+
+            <h1>Checkout</h1>
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+                <button type="submit">
+                    Place Order
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- CART -->
+
+        <div class="glass-box">
+
+            <h2>Your Cart</h2>
+
+            {% for item in cart %}
+
+                <div class="cart-item">
+
+                    <div>
+
+                        <div class="product-name">
+                            {{ item.product.name }}
+                        </div>
+
+                        <div class="quantity">
+                            Quantity: {{ item.quantity }}
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        ₹{{ item.total_price }}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+            <div class="total">
+
+                Total: ₹{{ cart.get_total_price }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        window.addEventListener("load", function(){
+
+            document.getElementById("loader").style.display = "none";
+
+        });
+
+    </script>
+
+</body>
+</html>

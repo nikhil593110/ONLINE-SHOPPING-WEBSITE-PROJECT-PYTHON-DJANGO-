@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Success</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            background: linear-gradient(135deg,#6a11cb,#2575fc);
+
+            overflow:hidden;
+        }
+
+        /* Animated background circles */
+
+        body::before{
+            content:'';
+            position:absolute;
+            width:300px;
+            height:300px;
+            background:rgba(255,255,255,0.1);
+            border-radius:50%;
+            top:-100px;
+            left:-100px;
+
+            animation: float 6s infinite ease-in-out;
+        }
+
+        body::after{
+            content:'';
+            position:absolute;
+            width:250px;
+            height:250px;
+            background:rgba(255,255,255,0.1);
+            border-radius:50%;
+            bottom:-80px;
+            right:-80px;
+
+            animation: float 8s infinite ease-in-out;
+        }
+
+        @keyframes float{
+            0%{
+                transform:translateY(0px);
+            }
+
+            50%{
+                transform:translateY(20px);
+            }
+
+            100%{
+                transform:translateY(0px);
+            }
+        }
+
+        .success-box{
+
+            position:relative;
+
+            width:500px;
+            padding:40px;
+
+            text-align:center;
+
+            background: rgba(255,255,255,0.15);
+
+            border:1px solid rgba(255,255,255,0.3);
+
+            backdrop-filter: blur(15px);
+
+            border-radius:20px;
+
+            color:white;
+
+            box-shadow:0 8px 32px rgba(0,0,0,0.3);
+
+            animation: fadeIn 1.2s ease;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(40px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0px);
+            }
+        }
+
+        .checkmark{
+
+            font-size:80px;
+
+            color:#00ff99;
+
+            margin-bottom:20px;
+
+            animation: pop 0.8s ease;
+        }
+
+        @keyframes pop{
+
+            0%{
+                transform:scale(0);
+            }
+
+            80%{
+                transform:scale(1.2);
+            }
+
+            100%{
+                transform:scale(1);
+            }
+        }
+
+        h1{
+            margin-bottom:15px;
+            font-size:38px;
+        }
+
+        p{
+            font-size:20px;
+            margin-bottom:25px;
+        }
+
+        .home-btn{
+
+            display:inline-block;
+
+            padding:14px 30px;
+
+            background:white;
+
+            color:#2575fc;
+
+            text-decoration:none;
+
+            font-weight:bold;
+
+            border-radius:30px;
+
+            transition:0.4s;
+        }
+
+        .home-btn:hover{
+
+            transform:scale(1.1);
+
+            background:#00ffcc;
+
+            color:black;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="success-box">
+
+        <div class="checkmark">
+            ✔
+        </div>
+
+        <h1>Order Successfully Placed!</h1>
+
+        <p>
+            Your Order ID is:
+            <strong>#{{ order.id }}</strong>
+        </p>
+
+        <a href="/" class="home-btn">
+            Back To Home
+        </a>
+
+    </div>
+
+</body>
+</html>

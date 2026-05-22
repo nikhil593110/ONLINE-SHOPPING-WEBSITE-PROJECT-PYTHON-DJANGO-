@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card p-4 shadow">
+
+    {% if product.image %}
+        <img src="{{ product.image.url }}" class="img-fluid mb-3" style="max-height:400px; object-fit:cover;">
+    {% endif %}
+
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+    <h4>₹{{ product.price }}</h4>
+
+    <a href="{% url 'cart_add' product.id %}" class="btn btn-success">
+        Add to Cart
+    </a>
+
+</div>
+
+{% endblock %}

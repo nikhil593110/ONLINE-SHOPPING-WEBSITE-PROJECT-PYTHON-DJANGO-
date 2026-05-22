@@ -1,0 +1,47 @@
+<style>
+    body{
+        background: linear-gradient(262deg, rgba(127, 0, 255, 0.14889705882352944) 0%, rgba(225, 0, 255, 0.1516981792717087) 100%);
+    }
+    div{
+        display: flex;
+        align-items: center;
+        margin: 0px auto;
+        border: 2px solid #ccc;
+        height: auto;
+        width: 950px;
+        background-color: white;
+        
+
+    }
+    p{
+        font-size: 22px;
+    }
+    p input{
+        width: 450px;
+        height: 50px;
+    }
+</style>
+<center>
+    <h1>My Orders</h1>
+</center>
+{% if orders %}
+    {% for order in orders %}
+        <div style="border:1px solid black; margin:10px; padding:10px;">
+            <nav>
+            <h2 >Order ID: {{ order.id }}</h2>
+            
+            <p><b>Date:</b> {{ order.created }}</p>
+
+            <h2>Items:</h2>
+            {% for item in order.items.all %}
+                <p>
+                    {{ item.product.name }} <br><br><b>Quantity:</b> {{ item.quantity }} 
+                    <br><br>₹{{ item.price }}
+                </p>
+            {% endfor %}
+            </nav>  
+        </div>
+    {% endfor %}
+{% else %}
+    <p>You have no orders yet.</p>
+{% endif %}

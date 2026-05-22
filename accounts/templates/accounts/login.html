@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Login</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+
+            height:100vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            overflow:hidden;
+
+            background:linear-gradient(135deg,#0f172a,#1e293b,#334155);
+        }
+
+        /* =========================
+            ANIMATED BACKGROUND
+        ========================== */
+
+        .circle{
+
+            position:absolute;
+
+            border-radius:50%;
+
+            background:rgba(255,255,255,0.08);
+
+            animation: float 8s infinite ease-in-out;
+        }
+
+        .circle:nth-child(1){
+
+            width:300px;
+            height:300px;
+
+            top:-100px;
+            left:-100px;
+        }
+
+        .circle:nth-child(2){
+
+            width:250px;
+            height:250px;
+
+            bottom:-100px;
+            right:-50px;
+
+            animation-duration:10s;
+        }
+
+        .circle:nth-child(3){
+
+            width:150px;
+            height:150px;
+
+            top:60%;
+            left:15%;
+
+            animation-duration:6s;
+        }
+
+        @keyframes float{
+
+            0%{
+                transform:translateY(0px);
+            }
+
+            50%{
+                transform:translateY(25px);
+            }
+
+            100%{
+                transform:translateY(0px);
+            }
+        }
+
+        /* =========================
+            LOGIN BOX
+        ========================== */
+
+        .login-box{
+
+            position:relative;
+
+            width:450px;
+
+            padding:50px;
+
+            border-radius:25px;
+
+            background:rgba(255,255,255,0.08);
+
+            backdrop-filter:blur(12px);
+
+            border:1px solid rgba(255,255,255,0.1);
+
+            box-shadow:0 0 40px rgba(0,0,0,0.3);
+
+            animation: fadeIn 1.2s ease;
+
+            z-index:10;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(40px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        /* =========================
+            TITLE
+        ========================== */
+
+        h1{
+
+            text-align:center;
+
+            color:white;
+
+            margin-bottom:35px;
+
+            font-size:42px;
+
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow{
+
+            from{
+                text-shadow:0 0 10px #ff9f1c;
+            }
+
+            to{
+                text-shadow:0 0 25px #ff9f1c;
+            }
+        }
+
+        /* =========================
+            INPUTS
+        ========================== */
+
+        input{
+
+            width:100%;
+
+            padding:15px;
+
+            margin-top:15px;
+
+            border:none;
+
+            outline:none;
+
+            border-radius:15px;
+
+            background:rgba(255,255,255,0.12);
+
+            color:white;
+
+            font-size:16px;
+
+            transition:0.4s;
+        }
+
+        input:focus{
+
+            transform:scale(1.03);
+
+            box-shadow:0 0 20px #ff9f1c;
+        }
+
+        /* =========================
+            BUTTON
+        ========================== */
+
+        button{
+
+            width:100%;
+
+            padding:15px;
+
+            margin-top:30px;
+
+            border:none;
+
+            border-radius:30px;
+
+            background: linear-gradient(45deg,#f12711,#f5af19);
+
+            color:black;
+
+            font-size:18px;
+
+            font-weight:bold;
+
+            cursor:pointer;
+
+            transition:0.4s;
+        }
+
+        button:hover{
+
+            transform:translateY(-5px) scale(1.03);
+
+            box-shadow:0 0 25px rgba(0,255,213,0.6);
+        }
+
+        button:active{
+
+            transform:scale(0.95);
+        }
+
+        /* =========================
+            LINK
+        ========================== */
+
+        .register-link{
+
+            text-align:center;
+
+            margin-top:25px;
+
+            color:white;
+        }
+
+        .register-link a{
+
+            color:#ff9f1c;
+
+            text-decoration:none;
+
+            font-weight:bold;
+
+            transition:0.4s;
+        }
+
+        .register-link a:hover{
+
+            text-shadow:0 0 15px #ff9f1c;
+        }
+
+        /* =========================
+            LOADER
+        ========================== */
+
+        #loader{
+
+            position:fixed;
+
+            width:100%;
+
+            height:100vh;
+
+            background:#0f172a;
+
+            z-index:9999;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+        }
+
+        .spinner{
+
+            width:70px;
+
+            height:70px;
+
+            border:8px solid #334155;
+
+            border-top:8px solid #ff9f1c;
+
+            border-radius:50%;
+
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin{
+
+            100%{
+                transform:rotate(360deg);
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- LOADER -->
+
+    <div id="loader">
+
+        <div class="spinner"></div>
+
+    </div>
+
+    <!-- BACKGROUND CIRCLES -->
+
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+
+    <!-- LOGIN BOX -->
+
+    <div class="login-box">
+
+        <h1>Login</h1>
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+        <div class="register-link">
+
+            Don't have an account?
+
+            <a href="{% url 'register' %}">
+                Create Account
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        window.addEventListener("load", function(){
+
+            document.getElementById("loader").style.display = "none";
+
+        });
+
+    </script>
+
+</body>
+</html>
